@@ -7,8 +7,8 @@ class Me extends Component {
     super();
 
     this.state = {
+        globalparams: props.globalparams,
       proposal: props.proposal,
-      alpha: 90
     };
   }
 
@@ -16,8 +16,14 @@ class Me extends Component {
     this.recalc();
   }
 
+
+  componentWillReceiveProps(newProps) {
+    this.setState({ globalparams: newProps.globalparams });
+    this.recalc();
+  }
+
   recalc() {
-    const a = this.state.alpha / 100;
+    const a = this.state.globalparams.alpha / 100;
     const D = 10;
     let y = 0;
     let x = 1e18;
@@ -29,6 +35,7 @@ class Me extends Component {
       labels.push(t);
       data.push(y1);
     }
+
     //debugger;
     this.setState({
       plot: {
@@ -70,7 +77,7 @@ class Me extends Component {
               <h1 className="title">Proposal : {this.state.proposal.name}</h1>
             </div>
           </div>
-          Alpha= {this.state.alpha}
+          {/* Alpha= {this.state.alpha / 100}
           <input
             class="slider is-fullwidth is-large is-danger is-circle"
             step="1"
@@ -82,7 +89,7 @@ class Me extends Component {
               this.setState({ alpha: e.target.value });
               this.recalc();
             }}
-          />
+          /> */}
         </section>
 
         <div className="card">
