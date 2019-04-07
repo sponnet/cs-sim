@@ -38,3 +38,11 @@ There should be a number of scenario's which we ideally can replay over the diff
 
 The system should work within certain boundaries. These simulations should show the boundaries that result into acceptable behaviour of the system. One of the goals of this visualisation & simulation is to determine and document these boundaries.
 
+## CSS framework
+
+The CSS framework in use is Bulma ( https://bulma.io/documentation/ )
+
+It is easy themable and you make any react component look nice without too much overhead.
+
+There are some good examples of using Bulma here : https://dansup.github.io/bulma-templates/
+
