@@ -13,7 +13,7 @@ $ yarn start
 
 ### Token Bonding Curve (Team 1)
 
-~~TODO~~
+TODO
 
 Ideally this component offers following interface to the conviction module
 
@@ -31,9 +31,9 @@ The conviction math is in `components/convictionlib.js`
 The visualisation / simulation is in `components/ConvictionVoting.js`
 
 
-### Creating and nominating funding proposals
+### Creating and nominating funding proposals (Team 3)
 
-TODO (team 3)
+TODO 
 
 #### Simulation scenario's
 
@@ -41,7 +41,7 @@ There should be a number of scenario's which we ideally can replay over the diff
 
 The scenario's currently take this form
 
-```json
+```javascript
  {
           timecreated: 0,
           id: 1,
