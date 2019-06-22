@@ -3,7 +3,12 @@ module.exports = {
     
     const c = i => Math.floor(i);
 
-    let y = y0 * a ** t + (x * (1 - a ** t)) / (1 - a);
+    // let y = y0 * a ** t + (x * (1 - a ** t)) / (1 - a);
+    // i believe this should be 
+    let y = y0 * a + x
+    // as long as x is the current token amount at time t
+    // t should not need to appear in this equation at all
+    
     // Solidity code
     const aD = c(a * D);
     const Dt = c(D ** t);
