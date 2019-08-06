@@ -13,7 +13,8 @@ class App extends Component {
     this.state = {
       globalparams: {
         alpha: 90,
-        totaltime: 100
+        totaltime: 100,
+        convictionthreshold: 50000,
       },
       proposals: [
         {

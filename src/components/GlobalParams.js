@@ -89,6 +89,37 @@ class Me extends Component {
                   />
                 </p>
               </article>
+            <article className="tile is-child box">
+                <p className="title">
+                  Conviction required {this.state.globalparams.convictionthreshold}
+                </p>
+                <p className="subtitle">
+                  <input
+                    className="slider is-fullwidth is-large is-danger is-circle"
+                    step="1"
+                    min="0"
+                    max="66000"
+                    value={this.state.globalparams.convictionthreshold}
+                    type="range"
+                    onChange={e => {
+                      this.setState(
+                        {
+                          globalparams: Object.assign(
+                            {},
+                            this.state.globalparams,
+                            { convictionthreshold: e.target.value }
+                          )
+                        },
+                        () => {
+                          if (this.props.onChange) {
+                            this.props.onChange(this.state.globalparams);
+                          }
+                        }
+                      );
+                    }}
+                  />
+                </p>
+              </article>              
             </div>
             {/* <div className="tile is-parent">
                             <article className="tile is-child box">
