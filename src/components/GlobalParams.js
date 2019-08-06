@@ -98,7 +98,7 @@ class Me extends Component {
                     className="slider is-fullwidth is-large is-danger is-circle"
                     step="1"
                     min="0"
-                    max="66000"
+                    max="200000"
                     value={this.state.globalparams.convictionthreshold}
                     type="range"
                     onChange={e => {

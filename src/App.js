@@ -26,7 +26,7 @@ class App extends Component {
             {
               name: "Griff",
               stakes: [
-                { time: 0, tokensstaked: 1000 },
+                { time: 20, tokensstaked: 1000 },
                 { time: 50, tokensstaked: 0 }
               ]
             },
@@ -34,7 +34,7 @@ class App extends Component {
               name: "Jeff",
               stakes: [
                 { time: 30, tokensstaked: 1000 },
-                { time: 80, tokensstaked: 7000 }
+                { time: 60, tokensstaked: 7000 }
               ]
             }
 
@@ -59,7 +59,6 @@ class App extends Component {
                 globalparams={this.state.globalparams}
                 proposal={proposal}
               />
-              ;
             </article>
           </div>
         </div>
@@ -77,7 +76,7 @@ class App extends Component {
         </section>
         <section className="info-tiles">{votes}</section>
       </div>
-    );
+    )
   }
 }
 

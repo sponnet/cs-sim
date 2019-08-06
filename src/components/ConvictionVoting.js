@@ -15,6 +15,7 @@ class Me extends Component {
             convictiontresholdpassed: false,
             stakeHistory: [],
             timeline: undefined,
+            plot: undefined,
         };
     }
 
@@ -43,26 +44,33 @@ class Me extends Component {
             //proposal: props.proposal,
             currenttime: 0,
             convictiontresholdpassed: false,
-            stakeHistory: [],
+            // stakeHistory: [],
             // timeline: undefined,
         }, () => {
 
             let interval = setInterval(() => {
-                let stakeHistory = [];
+                // let stakeHistory = [];
                 const newTime = this.state.currenttime + 1;
                 console.log("tick", newTime);
                 if (this.state.globalparams.totaltime > this.state.currenttime && !this.state.convictiontresholdpassed) {
                     this.setState({ currenttime: newTime }, () => {
-                        this.recalc(stakeHistory);
+                        this.recalc([]);
                         // console.log(this.state)
                     });
                     // t++;
                 } else {
                     clearInterval(interval);
-                    this.recalc([{
-                        t: this.state.currenttime,
-                        desc: `Proposal passed at time ${this.state.currenttime}`
-                    }]);
+                    if (this.state.convictiontresholdpassed) {
+                        this.recalc([{
+                            t: this.state.currenttime,
+                            desc: `Proposal passed !`
+                        }]);
+                    } else {
+                        this.recalc([[{
+                            t: this.state.currenttime,
+                            desc: `Proposal did not pass before end of sim`
+                        }]]);
+                    }
                     // this.state.stakeHistory.push({
                     //     t: this.state.currenttime,
                     //     desc: `${user.name} changes stake to ${action.tokensstaked}`
@@ -240,11 +248,9 @@ class Me extends Component {
                     </div>
                 </div>
 
-
-                <button onClick={() => { this.restart() }}>Restart Sim</button>
-
+                <button onClick={() => { this.restart() }}>Restart Simulation</button>
             </div>
-        );
+        )
     }
 }
 
