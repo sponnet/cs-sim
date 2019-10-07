@@ -3,7 +3,10 @@ module.exports = {
     
     // const c = i => Math.floor(i);
 
-     let y = y0 * a ** t + (x * (1 - a ** t)) / (1 - a);
+
+    let y = y0 + Math.log(t * a);
+
+//     let y = y0 * a ** t + (x * (1 - a ** t)) / (1 - a);
     // i believe this should be 
     //let y = y0 * a + x
     // as long as x is the current token amount at time t
