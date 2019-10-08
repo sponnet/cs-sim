@@ -8,15 +8,15 @@ self.__precacheManifest = [
     "url": "/cs-sim/static/js/runtime~main.a2a60435.js"
   },
   {
-    "revision": "a9107f166bfafa75dff3",
-    "url": "/cs-sim/static/js/main.0fd98661.chunk.js"
+    "revision": "5107cb3169912949bab4",
+    "url": "/cs-sim/static/js/main.b7db300f.chunk.js"
   },
   {
     "revision": "791f42abdc7512db36ab",
     "url": "/cs-sim/static/js/2.ccb4c09a.chunk.js"
   },
   {
-    "revision": "a9107f166bfafa75dff3",
+    "revision": "5107cb3169912949bab4",
     "url": "/cs-sim/static/css/main.71f70c8a.chunk.css"
   },
   {
@@ -24,7 +24,7 @@ self.__precacheManifest = [
     "url": "/cs-sim/static/css/2.ba3e89f1.chunk.css"
   },
   {
-    "revision": "74820a35b382d3bf59ee3091df27ae6f",
+    "revision": "853c3c0292c34e3ba9dac1546e40817d",
     "url": "/cs-sim/index.html"
   }
 ];
