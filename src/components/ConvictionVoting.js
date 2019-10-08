@@ -77,7 +77,7 @@ class Me extends Component {
                     // });
                 }
 
-            }, 100);
+            }, 1);
 
 
 
