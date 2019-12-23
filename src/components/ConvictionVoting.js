@@ -92,7 +92,7 @@ class Me extends Component {
 
 
 
-        let datasets = this.state.proposal.convictions.map((user, userindex) => {
+        let datasets = this.state.proposal.convictions.reduce((accum,user, userindex) => {
             const a = this.state.globalparams.alpha / 100;
             const D = 10;
             let y0 = 0;
@@ -100,6 +100,7 @@ class Me extends Component {
             let x = 0;
             let labels = [];
             let data = [];
+            let data_accent = [];
 
             let localt = 0; // local time ( = age of current conviction amount - reset every time conviction stake is changed.)
             let stakeIndex = 0;
@@ -107,9 +108,11 @@ class Me extends Component {
             for (let t = 0; t < this.state.currenttime; t++) {
                 // get timeline events for this CV
 
-                y1 = convictionlib.getConviction(a, D, y0, x, localt);
+                const y1 = convictionlib.getConviction(a, D, y0, x, localt);
+                const y1_accent = convictionlib.getConviction_old(a, D, y0, x, localt);
 
                 data.push(y1);
+                data_accent.push(y1_accent);
 
                 // check if user changed his conviction
                 if (
@@ -133,14 +136,23 @@ class Me extends Component {
                 localt++;
             }
 
-            return {
+            accum.push({
                 label: user.name,
                 fill: false,
                 // backgroundColor: "rgba(75,192,192,0.4)",
                 borderColor: this.makecolor(userindex),
                 data: data
-            };
-        });
+            });
+            accum.push(
+            {
+                label: user.name + "_accent",
+                fill: false,
+                // backgroundColor: "rgba(75,192,192,0.4)",
+                borderColor: this.makecolor(userindex+25),
+                data: data_accent
+            });
+            return accum;
+        },[]);
 
         // let convictionthreshold_below = [];
         // let convictionthreshold_above = [];
@@ -148,7 +160,7 @@ class Me extends Component {
         // add a dataset with the total conviction
         let totalconvictiondata = [];
         for (let t = 0; t < this.state.currenttime; t++) {
-            let total = datasets.reduce((accumulator, currentValue) => {
+            let total = 0 * datasets.reduce((accumulator, currentValue) => {
                 return accumulator + currentValue.data[t];
             }, 0);
             totalconvictiondata.push(total);

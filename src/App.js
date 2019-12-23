@@ -26,17 +26,17 @@ class App extends Component {
             {
               name: "Griff",
               stakes: [
-                { time: 20, tokensstaked: 1000 },
-                { time: 50, tokensstaked: 0 }
+                { time: 20, tokensstaked: 10000 },
+                // { time: 50, tokensstaked: 0 }
               ]
             },
-            {
-              name: "Jeff",
-              stakes: [
-                { time: 30, tokensstaked: 1000 },
-                { time: 60, tokensstaked: 7000 }
-              ]
-            }
+            // {
+            //   name: "Jeff",
+            //   stakes: [
+            //     { time: 30, tokensstaked: 1000 },
+            //     { time: 60, tokensstaked: 7000 }
+            //   ]
+            // }
 
           ]
         }
