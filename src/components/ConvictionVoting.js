@@ -22,13 +22,10 @@ class Me extends Component {
     componentWillMount() {
         this.recalc([]);
         this.restart();
-
     }
 
     componentWillReceiveProps(newProps) {
-        //   debugger;
         this.setState({ globalparams: newProps.globalparams }, () => { this.recalc([]); });
-
     }
 
     makecolor(i) {
@@ -40,24 +37,17 @@ class Me extends Component {
 
     restart() {
         this.setState({
-            //globalparams: props.globalparams,
-            //proposal: props.proposal,
             currenttime: 0,
             convictiontresholdpassed: false,
-            // stakeHistory: [],
-            // timeline: undefined,
         }, () => {
 
             let interval = setInterval(() => {
-                // let stakeHistory = [];
+                // swipe through time
                 const newTime = this.state.currenttime + 1;
-                // console.log("tick", newTime);
                 if (this.state.globalparams.totaltime > this.state.currenttime && !this.state.convictiontresholdpassed) {
                     this.setState({ currenttime: newTime }, () => {
                         this.recalc([]);
-                        // console.log(this.state)
                     });
-                    // t++;
                 } else {
                     clearInterval(interval);
                     if (this.state.convictiontresholdpassed) {
@@ -71,10 +61,6 @@ class Me extends Component {
                             desc: `Proposal did not pass before end of sim`
                         }]]);
                     }
-                    // this.state.stakeHistory.push({
-                    //     t: this.state.currenttime,
-                    //     desc: `${user.name} changes stake to ${action.tokensstaked}`
-                    // });
                 }
 
             }, 1);
@@ -94,26 +80,22 @@ class Me extends Component {
 
         let datasets = this.state.proposal.convictions.reduce((accum,user, userindex) => {
             const a = this.state.globalparams.alpha / 100;
-            const D = 10;
             let y0 = 0;
-            // let y1 = y0;
             let x = 0;
-            // let labels = [];
             let data = [];
-            // let data_accent = [];
-
+            
             let localt = 0; // local time ( = age of current conviction amount - reset every time conviction stake is changed.)
             let stakeIndex = 0;
 
             for (let t = 0; t < this.state.currenttime; t++) {
                 // get timeline events for this CV
-
-                const y1 = convictionlib.getConviction(a, D, y0, x, localt);
-                // const y1_accent = convictionlib.getConviction_old(a, D, y0, x, localt);
-
+                // localt = time delta between last now & last change of parameters
+                // y0 = y-offset (=convicton value) at last change of parameters
+                // x = total amount of stake currently
+                const y1 = convictionlib.getConviction(a, y0, x, localt);
+            
                 data.push(y1);
-                // data_accent.push(y1_accent);
-
+            
                 // check if user changed his conviction
                 if (
                     user.stakes &&
@@ -122,40 +104,28 @@ class Me extends Component {
                 ) {
                     let action = user.stakes[stakeIndex];
                     stakeIndex++;
+                    // reset conviction variables. Determine new y0 value
+                    // which will be the new starting value.
                     x = action.tokensstaked;
                     localt = 0;
                     y0 = y1;
-
 
                     stakeHistory.push({
                         t: t,
                         desc: `${user.name} changes stake to ${action.tokensstaked}`
                     });
                 }
-
                 localt++;
             }
 
             accum.push({
                 label: user.name,
                 fill: false,
-                // backgroundColor: "rgba(75,192,192,0.4)",
                 borderColor: this.makecolor(userindex),
                 data: data
             });
-            // accum.push(
-            // {
-            //     label: user.name + "_accent",
-            //     fill: false,
-            //     // backgroundColor: "rgba(75,192,192,0.4)",
-            //     borderColor: this.makecolor(userindex+25),
-            //     data: data_accent
-            // });
             return accum;
         },[]);
-
-        // let convictionthreshold_below = [];
-        // let convictionthreshold_above = [];
 
         // add a dataset with the total conviction
         let totalconvictiondata = [];
@@ -163,15 +133,12 @@ class Me extends Component {
             let total = datasets.reduce((accumulator, currentValue) => {
                 return accumulator + currentValue.data[t];
             }, 0);
-            // console.log("t=",t,"total=",total);
             totalconvictiondata.push(total);
             if (total < this.state.globalparams.convictionthreshold) {
-                // convictionthreshold_below.push(this.state.globalparams.convictionthreshold);
-                // convictionthreshold_above.push(null);
+                // just go on 
             } else {
+                // treshold reached. Stop simulation drawing
                 this.setState({ convictiontresholdpassed: true });
-                // convictionthreshold_below.push(null);
-                // convictionthreshold_above.push(this.state.globalparams.convictionthreshold);
             }
         }
 
@@ -180,24 +147,20 @@ class Me extends Component {
             convictionthreshold_below.push(this.state.globalparams.convictionthreshold);
         }
 
+        // draw total conviction
         datasets.push({
             label: "total",
             borderColor: "rgba(75,192,192,1)",
             data: totalconvictiondata
         });
 
+        // draw line for required conviction (treshold)
         datasets.push({
             fill: true,
             label: "required conviction",
             borderColor: "rgba(175,0,0,1)",
             data: convictionthreshold_below
         });
-
-        // datasets.push({
-        //     label: "required conviction",
-        //     borderColor: "rgba(0,175,0,1)",
-        //     data: convictionthreshold_above
-        // });
 
         let timeline = stakeHistory.sort((a, b) => {
             return a.t - b.t;
@@ -209,7 +172,6 @@ class Me extends Component {
                 datasets: datasets
             },
             timeline: timeline,
-            // stakeHistory: stakeHistory,
         });
     }
 
@@ -234,19 +196,6 @@ class Me extends Component {
                             }
                         </div>
                     </div>
-                    {/* Alpha= {this.state.alpha / 100}
-          <input
-            class="slider is-fullwidth is-large is-danger is-circle"
-            step="1"
-            min="0"
-            max="100"
-            value={this.state.alpha}
-            type="range"
-            onChange={e => {
-              this.setState({ alpha: e.target.value });
-              this.recalc();
-            }}
-          /> */}
                 </section>
 
                 <div className="card">
@@ -260,7 +209,6 @@ class Me extends Component {
                         </div>
                     </div>
                 </div>
-
                 <button onClick={() => { this.restart() }}>Restart Simulation</button>
             </div>
         )
