@@ -51,7 +51,7 @@ class Me extends Component {
             let interval = setInterval(() => {
                 // let stakeHistory = [];
                 const newTime = this.state.currenttime + 1;
-                console.log("tick", newTime);
+                // console.log("tick", newTime);
                 if (this.state.globalparams.totaltime > this.state.currenttime && !this.state.convictiontresholdpassed) {
                     this.setState({ currenttime: newTime }, () => {
                         this.recalc([]);
@@ -96,11 +96,11 @@ class Me extends Component {
             const a = this.state.globalparams.alpha / 100;
             const D = 10;
             let y0 = 0;
-            let y1 = y0;
+            // let y1 = y0;
             let x = 0;
-            let labels = [];
+            // let labels = [];
             let data = [];
-            let data_accent = [];
+            // let data_accent = [];
 
             let localt = 0; // local time ( = age of current conviction amount - reset every time conviction stake is changed.)
             let stakeIndex = 0;
@@ -109,10 +109,10 @@ class Me extends Component {
                 // get timeline events for this CV
 
                 const y1 = convictionlib.getConviction(a, D, y0, x, localt);
-                const y1_accent = convictionlib.getConviction_old(a, D, y0, x, localt);
+                // const y1_accent = convictionlib.getConviction_old(a, D, y0, x, localt);
 
                 data.push(y1);
-                data_accent.push(y1_accent);
+                // data_accent.push(y1_accent);
 
                 // check if user changed his conviction
                 if (
@@ -143,14 +143,14 @@ class Me extends Component {
                 borderColor: this.makecolor(userindex),
                 data: data
             });
-            accum.push(
-            {
-                label: user.name + "_accent",
-                fill: false,
-                // backgroundColor: "rgba(75,192,192,0.4)",
-                borderColor: this.makecolor(userindex+25),
-                data: data_accent
-            });
+            // accum.push(
+            // {
+            //     label: user.name + "_accent",
+            //     fill: false,
+            //     // backgroundColor: "rgba(75,192,192,0.4)",
+            //     borderColor: this.makecolor(userindex+25),
+            //     data: data_accent
+            // });
             return accum;
         },[]);
 
@@ -160,9 +160,10 @@ class Me extends Component {
         // add a dataset with the total conviction
         let totalconvictiondata = [];
         for (let t = 0; t < this.state.currenttime; t++) {
-            let total = 0 * datasets.reduce((accumulator, currentValue) => {
+            let total = datasets.reduce((accumulator, currentValue) => {
                 return accumulator + currentValue.data[t];
             }, 0);
+            // console.log("t=",t,"total=",total);
             totalconvictiondata.push(total);
             if (total < this.state.globalparams.convictionthreshold) {
                 // convictionthreshold_below.push(this.state.globalparams.convictionthreshold);

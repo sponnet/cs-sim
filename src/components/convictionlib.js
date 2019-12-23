@@ -7,8 +7,8 @@ module.exports = {
         return y;
     },
 
-    getConviction_old: (a, D, y0, x, t) => {
-        let y = y0 * a ** t + (x * (1 - a ** t)) / (1 - a);
-        return y;
-    }
+    // getConviction_old: (a, D, y0, x, t) => {
+    //     let y = y0 * a ** t + (x * (1 - a ** t)) / (1 - a);
+    //     return y;
+    // }
 };

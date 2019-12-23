@@ -13,8 +13,8 @@ class App extends Component {
     this.state = {
       globalparams: {
         alpha: 90,
-        totaltime: 100,
-        convictionthreshold: 50000,
+        totaltime: 400,
+        convictionthreshold: 6800,
       },
       proposals: [
         {
@@ -26,17 +26,17 @@ class App extends Component {
             {
               name: "Griff",
               stakes: [
-                { time: 20, tokensstaked: 10000 },
-                // { time: 50, tokensstaked: 0 }
+                { time: 20, tokensstaked: 1000 },
+                { time: 50, tokensstaked: 0 }
               ]
             },
-            // {
-            //   name: "Jeff",
-            //   stakes: [
-            //     { time: 30, tokensstaked: 1000 },
-            //     { time: 60, tokensstaked: 7000 }
-            //   ]
-            // }
+            {
+              name: "Jeff",
+              stakes: [
+                { time: 30, tokensstaked: 1000 },
+                { time: 60, tokensstaked: 7000 }
+              ]
+            }
 
           ]
         }
